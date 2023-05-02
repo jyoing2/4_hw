@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from.models import Blog
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Blog
 from django.utils import timezone
 
 def detail(request, id):
@@ -9,7 +9,7 @@ def detail(request, id):
 # Create your views here.
 
 def mainpage(request):
-    blog = Blog.objects.all()
+    blogs = Blog.objects.all()
     return render(request, 'main/mainpage.html', {'blogs':blogs})
 
 def secondpage(request):
@@ -20,7 +20,7 @@ def secondpage(request):
 
 def create(request):
     new_blog = Blog()
-    new_blog.title = request.POST['tilte']
+    new_blog.title = request.POST['title']
     new_blog.writer = request.POST['writer']
     new_blog.pub_date = timezone.now( )
     new_blog.body = request.POST['body']
